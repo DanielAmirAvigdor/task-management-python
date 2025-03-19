@@ -8,5 +8,5 @@ class RoleEnum(str, Enum):
 
 class PriorityEnum(str, Enum):
     LOW = "low"
-    MEMBER = "member"
-    VIEWER = "viewer"
+    MEDIUM = "medium"
+    HIGH = "high"

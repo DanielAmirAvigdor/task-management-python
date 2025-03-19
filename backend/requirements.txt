@@ -2,3 +2,8 @@ fastapi
 uvicorn
 sqlalchemy
 psycopg2-binary
+pydantic
+bcrypt
+python-dotenv
+pytest
+pytest-mock
