@@ -1,14 +1,18 @@
 import re
 from pydantic import BaseModel, EmailStr, Field, field_validator
+from typing import Optional
 from datetime import datetime
 
 
-class CreateUserRequest(BaseModel):
-    email: EmailStr
-    first_name: str
-    last_name: str
-    password: str = Field(min_length=8)
-    creation_date: datetime = datetime.now()
+class UserValidatorMixin(BaseModel):
+    @field_validator("first_name", "last_name")
+    @classmethod
+    def validate_name(cls, value):
+        if not value.strip():
+            raise ValueError("Name cannot be empty or just whitespace.")
+        if not value.isalpha():
+            raise ValueError("Name must contain only alphabetic characters.")
+        return value
 
     @field_validator("password")
     @classmethod
@@ -19,12 +23,26 @@ class CreateUserRequest(BaseModel):
         return value
 
 
-class CreateUserResponse(BaseModel):
+class CreateUserRequest(UserValidatorMixin):
+    email: EmailStr
+    first_name: str
+    last_name: str
+    password: str = Field(min_length=8)
+
+
+class UpdateUserRequest(UserValidatorMixin):
+    email: Optional[EmailStr] = None
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    password: Optional[str] = None
+
+
+class UserResponse(BaseModel):
     user_id: int
     email: EmailStr
     first_name: str
     last_name: str
-    creation_date: datetime
+    created_at: datetime
 
     class Config:
         orm_mode = True
