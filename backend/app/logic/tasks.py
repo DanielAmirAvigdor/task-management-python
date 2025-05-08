@@ -1,0 +1,36 @@
+from fastapi import HTTPException
+from typing import List
+from sqlalchemy.orm import Session
+from models.models import Task
+from data import tasks as tasks_data
+from schemas.tasks import CreateTaskRequest, UpdateTaskRequest
+
+
+def get_tasks_by_user(user_id: str, db: Session) -> List[Task]:
+    tasks = tasks_data.get_tasks_by_user(user_id, db)
+    return tasks
+
+
+def get_task(id: int, user_id: int, db: Session) -> Task:
+    task = tasks_data.get_task(id, db)
+    if not task or task.user_id != user_id:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return task
+
+
+def create_task(task_data: CreateTaskRequest, user_id: int, db: Session) -> Task:
+    return tasks_data.create_task(task_data, user_id, db)
+
+
+def update_task(id: int, task_data: UpdateTaskRequest, user_id: int, db: Session) -> Task:
+    task = tasks_data.get_task(id, db)
+    if not task or task.user_id != user_id:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return tasks_data.update_task(id, task_data, db)
+
+
+def delete_task(id: int, user_id: int, db: Session) -> bool:
+    task = tasks_data.get_task(id, db)
+    if not task or task.user_id != user_id:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return tasks_data.delete_task(id, db)

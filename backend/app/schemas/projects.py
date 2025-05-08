@@ -20,7 +20,6 @@ class ProjectValidatorMixin(BaseModel):
         return value.strip()
 
 
-
 class CreateProjectRequest(ProjectValidatorMixin):
     title: str
     description: Optional[str] = None

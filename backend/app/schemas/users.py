@@ -25,9 +25,9 @@ class UserValidatorMixin(BaseModel):
 
 class CreateUserRequest(UserValidatorMixin):
     email: EmailStr
+    password: str = Field(min_length=8)
     first_name: str
     last_name: str
-    password: str = Field(min_length=8)
 
 
 class UpdateUserRequest(UserValidatorMixin):

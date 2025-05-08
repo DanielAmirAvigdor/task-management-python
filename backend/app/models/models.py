@@ -37,7 +37,7 @@ class Task(Base):
     user_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
     title = Column(String, index=True, nullable=False)
     description = Column(String, nullable=True)
-    status = Column(Boolean, default=False, nullable=False)
+    is_completed = Column(Boolean, default=False, nullable=False)
     priority = Column(Enum(PriorityEnum), nullable=False)
     due_date = Column(DateTime, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
