@@ -12,8 +12,8 @@ def get_tasks_by_user(user_id: str, db: Session) -> List[Task]:
     return tasks
 
 
-def get_task(id: int, user_id: int, db: Session) -> Task:
-    task = tasks_data.get_task(id, db)
+def get_task(task_id: int, user_id: int, db: Session) -> Task:
+    task = tasks_data.get_task(task_id, db)
     if not task:
         raise HTTPException(status_code=404, detail="Task not found")
 
@@ -28,25 +28,25 @@ def create_task(task_data: CreateTaskRequest, user_id: int, db: Session) -> Task
     return tasks_data.create_task(task_data, user_id, db)
 
 
-def update_task(id: int, task_data: UpdateTaskRequest, user_id: int, db: Session) -> Task:
-    task = tasks_data.get_task(id, db)
+def update_task(task_id: int, updated_task: UpdateTaskRequest, user_id: int, db: Session) -> Task:
+    task = tasks_data.get_task(task_id, db)
     if not task:
         raise HTTPException(status_code=404, detail="Task not found")
 
     if task.user_id != user_id:
         if not permissions.is_user_admin(user_id, task.project_id, db):
-            raise HTTPException(status_code=403, detail="Unathorized")
+            raise HTTPException(status_code=403, detail="Unauthorized")
 
-    return tasks_data.update_task(id, task_data, db)
+    return tasks_data.update_task(task_id, updated_task, db)
 
 
-def delete_task(id: int, user_id: int, db: Session) -> bool:
-    task = tasks_data.get_task(id, db)
+def delete_task(task_id: int, user_id: int, db: Session) -> bool:
+    task = tasks_data.get_task(task_id, db)
     if not task:
         raise HTTPException(status_code=404, detail="Task not found")
 
     if task.user_id != user_id:
         if not permissions.is_user_admin(user_id, task.project_id, db):
-            raise HTTPException(status_code=403, detail="Unathorized")
+            raise HTTPException(status_code=403, detail="Unauthorized")
 
-    return tasks_data.delete_task(id, db)
+    return tasks_data.delete_task(task_id, db)

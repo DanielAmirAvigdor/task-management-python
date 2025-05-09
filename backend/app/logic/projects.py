@@ -12,11 +12,11 @@ def get_projects_by_user(user_id: str, db: Session) -> List[Project]:
     return projects
 
 
-def get_project(id: int, user_id: int, db: Session) -> Project:
-    if not permissions.is_user_participant(user_id, id, db):
+def get_project(project_id: int, user_id: int, db: Session) -> Project:
+    if not permissions.is_user_participant(user_id, project_id, db):
         raise HTTPException(status_code=403, detail="Unathorized")
 
-    project = projects_data.get_project(id, db)
+    project = projects_data.get_project(project_id, db)
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
 
@@ -27,24 +27,24 @@ def create_project(project: CreateProjectRequest, user_id: int, db: Session) -> 
     return projects_data.create_project(project, user_id, db)
 
 
-def update_project(id: int, project: UpdateProjectRequest, db: Session, user_id: int) -> Project:
+def update_project(project_id: int, project: UpdateProjectRequest, db: Session, user_id: int) -> Project:
     project = projects_data.get_project(id, db)
 
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
 
-    if not permissions.is_user_admin(user_id, id, db):
+    if not permissions.is_user_admin(user_id, project_id, db):
         raise HTTPException(status_code=403, detail="Unathorized")
 
-    return projects_data.update_project(id, project, db)
+    return projects_data.update_project(project_id, project, db)
 
 
-def delete_project(id: int, user_id: int, db: Session) -> bool:
-    project = projects_data.get_project(id, db)
+def delete_project(project_id: int, user_id: int, db: Session) -> bool:
+    project = projects_data.get_project(project_id, db)
 
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
-    if not permissions.is_user_admin(user_id, id, db):
+    if not permissions.is_user_admin(user_id, project_id, db):
         raise HTTPException(status_code=403, detail="Unathorized")
 
-    return projects_data.delete_project(id, db)
+    return projects_data.delete_project(project_id, db)

@@ -12,44 +12,44 @@ projects_router = APIRouter()
 
 @projects_router.get("/", response_model=List[ProjectResponse])
 async def get_projects_by_user(
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
 ):
     return projects_logic.get_projects_by_user(current_user.user_id, db)
 
 
-@projects_router.get("/{id}", response_model=ProjectResponse)
+@projects_router.get("/{project_id}", response_model=ProjectResponse)
 async def get_project(
-    id: int,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    project_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
 ):
-    return projects_logic.get_project(id, current_user.user_id, db)
+    return projects_logic.get_project(project_id, current_user.user_id, db)
 
 
 @projects_router.post("/", response_model=ProjectResponse)
 async def create_project(
     project: CreateProjectRequest,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
 ):
     return projects_logic.create_project(project, current_user.user_id, db)
 
 
-@projects_router.put("/{id}", response_model=ProjectResponse)
+@projects_router.put("/{project_id}", response_model=ProjectResponse)
 async def update_project(
-    id: int,
+    project_id: int,
     project: UpdateProjectRequest,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
 ):
-    return projects_logic.update_project(id, project, current_user.user_id, db)
+    return projects_logic.update_project(project_id, project, current_user.user_id, db)
 
 
-@projects_router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@projects_router.delete("/{project_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_project(
-    id: int,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    project_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
 ):
-    projects_logic.delete_project(id, current_user.user_id, db)
+    projects_logic.delete_project(project_id, current_user.user_id, db)

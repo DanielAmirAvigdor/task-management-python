@@ -4,7 +4,7 @@ from typing import Optional
 from datetime import datetime
 
 
-class UserValidatorMixin(BaseModel):
+class UserValidator(BaseModel):
     @field_validator("first_name", "last_name")
     @classmethod
     def validate_name(cls, value):
@@ -23,14 +23,14 @@ class UserValidatorMixin(BaseModel):
         return value
 
 
-class CreateUserRequest(UserValidatorMixin):
+class CreateUserRequest(UserValidator):
     email: EmailStr
     password: str = Field(min_length=8)
     first_name: str
     last_name: str
 
 
-class UpdateUserRequest(UserValidatorMixin):
+class UpdateUserRequest(UserValidator):
     email: Optional[EmailStr] = None
     first_name: Optional[str] = None
     last_name: Optional[str] = None

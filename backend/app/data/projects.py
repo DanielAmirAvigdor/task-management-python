@@ -40,7 +40,7 @@ def update_project(project_id: int, data: UpdateProjectRequest, db: Session) -> 
     project = db.query(Project).filter(Project.project_id == project_id).first()
 
     if data.title is not None:
-        project.title = data.title
+        project.name = data.title
     if data.description is not None:
         project.description = data.description
 

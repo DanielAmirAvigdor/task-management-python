@@ -4,7 +4,7 @@ from datetime import datetime
 from models.enums import PriorityEnum
 
 
-class TaskValidatorMixin(BaseModel):
+class TaskValidator(BaseModel):
     @field_validator("title")
     @classmethod
     def validate_title(cls, value):
@@ -28,7 +28,7 @@ class TaskValidatorMixin(BaseModel):
         return value
 
 
-class CreateTaskRequest(TaskValidatorMixin):
+class CreateTaskRequest(TaskValidator):
     project_id: Optional[int] = None
     user_id: int
     title: str
@@ -38,7 +38,7 @@ class CreateTaskRequest(TaskValidatorMixin):
     due_date: Optional[datetime] = None
 
 
-class UpdateTaskRequest(TaskValidatorMixin):
+class UpdateTaskRequest(TaskValidator):
     project_id: Optional[int] = None
     title: Optional[str] = None
     description: Optional[str] = None

@@ -3,7 +3,7 @@ from pydantic import BaseModel, field_validator
 from datetime import datetime
 
 
-class ProjectValidatorMixin(BaseModel):
+class ProjectValidator(BaseModel):
     @field_validator("title")
     @classmethod
     def validate_title(cls, value):
@@ -20,12 +20,12 @@ class ProjectValidatorMixin(BaseModel):
         return value.strip()
 
 
-class CreateProjectRequest(ProjectValidatorMixin):
+class CreateProjectRequest(ProjectValidator):
     title: str
     description: Optional[str] = None
 
 
-class UpdateProjectRequest(ProjectValidatorMixin):
+class UpdateProjectRequest(ProjectValidator):
     title: Optional[str] = None
     description: Optional[str] = None
 

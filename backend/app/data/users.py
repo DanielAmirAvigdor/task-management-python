@@ -3,12 +3,12 @@ from models.models import User
 from schemas.users import UpdateUserRequest
 
 
-def get_user(id: int, db: Session) -> User | None:
-    return db.query(User).filter(User.user_id == id).first()
+# def get_user(user_id: int, db: Session) -> User | None:
+#     return db.query(User).filter(User.user_id == user_id).first()
 
 
-def update_user(id: int, user: UpdateUserRequest, hashed_password: str | None, db: Session) -> User | None:
-    db_user = db.query(User).filter(User.user_id == id).first()
+def update_user(user_id: int, user: UpdateUserRequest, hashed_password: str | None, db: Session) -> User | None:
+    db_user = db.query(User).filter(User.user_id == user_id).first()
 
     if not db_user:
         return None
@@ -28,8 +28,8 @@ def update_user(id: int, user: UpdateUserRequest, hashed_password: str | None, d
     return db_user
 
 
-def delete_user(id: int, db: Session) -> bool:
-    db_user = db.query(User).filter(User.user_id == id).first()
+def delete_user(user_id: int, db: Session) -> bool:
+    db_user = db.query(User).filter(User.user_id == user_id).first()
 
     if not db_user:
         return False

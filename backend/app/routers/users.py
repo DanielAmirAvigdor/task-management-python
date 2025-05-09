@@ -13,23 +13,21 @@ users_router = APIRouter()
 async def get_current_user(
     current_user: User = Depends(get_current_user)
 ):
-    return users_logic.get_currernt_user(current_user)
+    return users_logic.get_current_user(current_user)
 
 
-@users_router.put("/{id}", response_model=UserResponse)
+@users_router.put("/me", response_model=UserResponse)
 async def update_user(
-    id: int,
-    user: UpdateUserRequest,
+    updated_user: UpdateUserRequest,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    return users_logic.update_user(id, user, current_user.user_id, db)
+    return users_logic.update_user(current_user.user_id, updated_user, db)
 
 
-@users_router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@users_router.delete("/me", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_user(
-    id: int,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    users_logic.delete_user(id, current_user.user_id, db)
+    users_logic.delete_user(current_user.user_id, db)

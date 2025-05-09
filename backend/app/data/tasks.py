@@ -7,8 +7,8 @@ def get_tasks_by_user(user_id: int, db: Session) -> list[Task]:
     return db.query(Task).filter(Task.user_id == user_id).all()
 
 
-def get_task(id: int, db: Session) -> Task | None:
-    return db.query(Task).filter(Task.id == id).first()
+def get_task(task_id: int, db: Session) -> Task | None:
+    return db.query(Task).filter(Task.task_id == task_id).first()
 
 
 def create_task(task: CreateTaskRequest, user_id: int, db: Session) -> Task:
@@ -28,23 +28,23 @@ def create_task(task: CreateTaskRequest, user_id: int, db: Session) -> Task:
     return db_task
 
 
-def update_task(id: int, task: UpdateTaskRequest, db: Session) -> Task | None:
-    db_task = db.query(Task).filter(Task.id == id).first()
+def update_task(task_id: int, updated_task: UpdateTaskRequest, db: Session) -> Task | None:
+    db_task = db.query(Task).filter(Task.task_id == task_id).first()
     if not db_task:
         return None
 
-    if task.project_id is not None:
-        db_task.project_id = task.project_id
-    if task.title is not None:
-        db_task.title = task.title
-    if task.description is not None:
-        db_task.description = task.description
-    if task.is_completed is not None:
-        db_task.is_completed = task.is_completed
-    if task.priority is not None:
-        db_task.priority = task.priority
-    if task.due_date is not None:
-        db_task.due_date = task.due_date
+    if updated_task.project_id is not None:
+        db_task.project_id = updated_task.project_id
+    if updated_task.title is not None:
+        db_task.title = updated_task.title
+    if updated_task.description is not None:
+        db_task.description = updated_task.description
+    if updated_task.is_completed is not None:
+        db_task.is_completed = updated_task.is_completed
+    if updated_task.priority is not None:
+        db_task.priority = updated_task.priority
+    if updated_task.due_date is not None:
+        db_task.due_date = updated_task.due_date
 
     db.commit()
     db.refresh(db_task)
@@ -52,8 +52,8 @@ def update_task(id: int, task: UpdateTaskRequest, db: Session) -> Task | None:
     return db_task
 
 
-def delete_task(id: int, db: Session) -> bool:
-    db_task = db.query(Task).filter(Task.id == id).first()
+def delete_task(task_id: int, db: Session) -> bool:
+    db_task = db.query(Task).filter(Task.task_id == task_id).first()
     if not db_task:
         return False
 
