@@ -19,7 +19,7 @@ def get_task(task_id: int, user_id: int, db: Session) -> Task:
 
     if task.user_id != user_id:
         if not permissions.is_user_participant(user_id, task.project_id, db):
-            raise HTTPException(status_code=403, detail="Unathorized")
+            raise HTTPException(status_code=403, detail="Unauthorized")
 
     return task
 

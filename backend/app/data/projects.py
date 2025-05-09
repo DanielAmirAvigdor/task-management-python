@@ -16,10 +16,10 @@ def get_project(project_id: int, db: Session) -> Project | None:
     return db.query(Project).filter(Project.project_id == project_id).first()
 
 
-def create_project(project_data: CreateProjectRequest, user_id: int, db: Session) -> Project:
-    project = Project(
-        title=project_data.title,
-        description=project_data.description
+def create_project(project: CreateProjectRequest, user_id: int, db: Session) -> Project:
+    db_project = Project(
+        title=project.title,
+        description=project.description
     )
     db.add(project)
     db.commit()
@@ -27,22 +27,22 @@ def create_project(project_data: CreateProjectRequest, user_id: int, db: Session
 
     link = UserProject(
         user_id=user_id,
-        project_id=project.project_id,
+        project_id=db_project.project_id,
         is_admin=True
     )
     db.add(link)
     db.commit()
 
-    return project
+    return db_project
 
 
-def update_project(project_id: int, data: UpdateProjectRequest, db: Session) -> Project:
+def update_project(project_id: int, updated_project: UpdateProjectRequest, db: Session) -> Project:
     project = db.query(Project).filter(Project.project_id == project_id).first()
 
-    if data.title is not None:
-        project.name = data.title
-    if data.description is not None:
-        project.description = data.description
+    if updated_project.title is not None:
+        project.title = updated_project.title
+    if updated_project.description is not None:
+        project.description = updated_project.description
 
     db.commit()
     db.refresh(project)

@@ -1,6 +1,8 @@
 from typing import Optional
 from pydantic import BaseModel, field_validator
 from datetime import datetime
+from schemas.tasks import TaskResponse
+from schemas.users import UserResponse
 
 
 class ProjectValidator(BaseModel):
@@ -34,6 +36,8 @@ class ProjectResponse(BaseModel):
     project_id: int
     title: str
     description: Optional[str] = None
+    participants: list[UserResponse]
+    tasks: list[TaskResponse]
     created_at: datetime
     updated_at: datetime
 

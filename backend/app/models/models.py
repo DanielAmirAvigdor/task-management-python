@@ -21,7 +21,7 @@ class User(Base):
 class Project(Base):
     __tablename__ = "projects"
     project_id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True, nullable=False)
+    title = Column(String, index=True, nullable=False)
     description = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
