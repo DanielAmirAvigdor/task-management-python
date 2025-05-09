@@ -23,3 +23,6 @@ def register(
     db: Session = Depends(get_db)
 ):
     return auth_logic.register(user, db)
+
+# todo: add refresh token
+# todo: add invalidate token

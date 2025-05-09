@@ -9,7 +9,7 @@ from schemas.projects import ProjectResponse, CreateProjectRequest, UpdateProjec
 
 projects_router = APIRouter(tags=["Projects"])
 
-
+# todo: remove this function (redundant for /users/me/projects)
 @projects_router.get("/", response_model=List[ProjectResponse])
 async def get_projects_by_user(
     current_user: User = Depends(get_current_user),
@@ -53,3 +53,6 @@ async def delete_project(
     db: Session = Depends(get_db)
 ):
     projects_logic.delete_project(project_id, current_user.user_id, db)
+
+
+# todo: add /projects/project_id/tasks - get all tasks for project

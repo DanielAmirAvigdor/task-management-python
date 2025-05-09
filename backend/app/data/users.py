@@ -4,10 +4,6 @@ from models.models import User
 from schemas.users import UpdateUserRequest
 
 
-# def get_user(user_id: int, db: Session) -> User | None:
-#     return db.query(User).filter(User.user_id == user_id).first()
-
-
 def update_user(user_id: int, user: UpdateUserRequest, hashed_password: Optional[str], db: Session) -> Optional[User]:
     db_user = db.query(User).filter(User.user_id == user_id).first()
 

@@ -31,3 +31,6 @@ async def delete_user(
     db: Session = Depends(get_db)
 ):
     users_logic.delete_user(current_user.user_id, db)
+
+# todo: add /users/me/projects (get all projects for a user)
+# todo: add /users/me/tasks (get all tasks for a user)
