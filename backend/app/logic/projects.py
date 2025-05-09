@@ -28,7 +28,7 @@ def create_project(project: CreateProjectRequest, user_id: int, db: Session) -> 
 
 
 def update_project(project_id: int, project: UpdateProjectRequest, db: Session, user_id: int) -> Project:
-    project = projects_data.get_project(id, db)
+    project = projects_data.get_project(project_id, db)
 
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
