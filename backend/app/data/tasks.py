@@ -24,6 +24,7 @@ def create_task(task: CreateTaskRequest, user_id: int, db: Session) -> Task:
     db.add(db_task)
     db.commit()
     db.refresh(db_task)
+
     return db_task
 
 
@@ -47,6 +48,7 @@ def update_task(id: int, task: UpdateTaskRequest, db: Session) -> Task | None:
 
     db.commit()
     db.refresh(db_task)
+
     return db_task
 
 
@@ -57,4 +59,5 @@ def delete_task(id: int, db: Session) -> bool:
 
     db.delete(db_task)
     db.commit()
+
     return True

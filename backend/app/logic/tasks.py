@@ -3,6 +3,7 @@ from typing import List
 from sqlalchemy.orm import Session
 from models.models import Task
 from data import tasks as tasks_data
+from utils import permissions
 from schemas.tasks import CreateTaskRequest, UpdateTaskRequest
 
 
@@ -13,8 +14,13 @@ def get_tasks_by_user(user_id: str, db: Session) -> List[Task]:
 
 def get_task(id: int, user_id: int, db: Session) -> Task:
     task = tasks_data.get_task(id, db)
-    if not task or task.user_id != user_id:
+    if not task:
         raise HTTPException(status_code=404, detail="Task not found")
+
+    if task.user_id != user_id:
+        if not permissions.is_user_participant(user_id, task.project_id, db):
+            raise HTTPException(status_code=403, detail="Unathorized")
+
     return task
 
 
@@ -24,13 +30,23 @@ def create_task(task_data: CreateTaskRequest, user_id: int, db: Session) -> Task
 
 def update_task(id: int, task_data: UpdateTaskRequest, user_id: int, db: Session) -> Task:
     task = tasks_data.get_task(id, db)
-    if not task or task.user_id != user_id:
+    if not task:
         raise HTTPException(status_code=404, detail="Task not found")
+
+    if task.user_id != user_id:
+        if not permissions.is_user_admin(user_id, task.project_id, db):
+            raise HTTPException(status_code=403, detail="Unathorized")
+
     return tasks_data.update_task(id, task_data, db)
 
 
 def delete_task(id: int, user_id: int, db: Session) -> bool:
     task = tasks_data.get_task(id, db)
-    if not task or task.user_id != user_id:
+    if not task:
         raise HTTPException(status_code=404, detail="Task not found")
+
+    if task.user_id != user_id:
+        if not permissions.is_user_admin(user_id, task.project_id, db):
+            raise HTTPException(status_code=403, detail="Unathorized")
+
     return tasks_data.delete_task(id, db)
