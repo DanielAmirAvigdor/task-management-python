@@ -7,7 +7,7 @@ from data.db import get_db
 from models.models import User
 from auth.dependencies import get_current_user
 
-tasks_router = APIRouter()
+tasks_router = APIRouter(tags=["Tasks"])
 
 
 @tasks_router.get("/", response_model=List[TaskResponse])

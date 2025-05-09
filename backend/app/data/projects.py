@@ -1,3 +1,4 @@
+from typing import Optional
 from sqlalchemy.orm import Session
 from models.models import Project, UserProject
 from schemas.projects import CreateProjectRequest, UpdateProjectRequest
@@ -12,7 +13,7 @@ def get_projects_by_user(user_id: int, db: Session) -> list[Project]:
     )
 
 
-def get_project(project_id: int, db: Session) -> Project | None:
+def get_project(project_id: int, db: Session) -> Optional[Project]:
     return db.query(Project).filter(Project.project_id == project_id).first()
 
 

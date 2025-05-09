@@ -5,6 +5,10 @@ from models.enums import PriorityEnum
 
 
 class TaskValidator(BaseModel):
+    title: Optional[str] = None
+    description: Optional[str] = None
+    due_date: Optional[datetime] = None
+
     @field_validator("title")
     @classmethod
     def validate_title(cls, value):

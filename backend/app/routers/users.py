@@ -6,7 +6,7 @@ from models.models import User
 from auth.dependencies import get_current_user
 from data.db import get_db
 
-users_router = APIRouter()
+users_router = APIRouter(tags=["Users"])
 
 
 @users_router.get("/me", response_model=UserResponse)

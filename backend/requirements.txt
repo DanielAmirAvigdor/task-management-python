@@ -2,9 +2,10 @@ fastapi
 uvicorn
 sqlalchemy
 psycopg2-binary
-pydantic
+pydantic[email]
 bcrypt
 python-dotenv
 python-jose[cryptography]
+python-multipart
 pytest
 httpx

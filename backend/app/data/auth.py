@@ -1,9 +1,10 @@
+from typing import Optional
 from sqlalchemy.orm import Session
 from models.models import User
 from schemas.users import CreateUserRequest
 
 
-def get_user_by_email(email: str, db: Session) -> User | None:
+def get_user_by_email(email: str, db: Session) -> Optional[User]:
     return db.query(User).filter(User.email == email).first()
 
 

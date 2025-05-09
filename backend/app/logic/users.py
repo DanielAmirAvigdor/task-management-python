@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from models.models import User
-from backend.app.auth.hashing import hash_password
+from auth.hashing import hash_password
 from data import users as users_data
 from schemas.users import UpdateUserRequest
 

@@ -6,6 +6,9 @@ from schemas.users import UserResponse
 
 
 class ProjectValidator(BaseModel):
+    title: Optional[str] = None
+    description: Optional[str] = None
+
     @field_validator("title")
     @classmethod
     def validate_title(cls, value):

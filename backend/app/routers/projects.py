@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from models.models import User
 from schemas.projects import ProjectResponse, CreateProjectRequest, UpdateProjectRequest
 
-projects_router = APIRouter()
+projects_router = APIRouter(tags=["Projects"])
 
 
 @projects_router.get("/", response_model=List[ProjectResponse])

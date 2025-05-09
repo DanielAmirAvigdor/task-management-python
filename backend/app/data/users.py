@@ -1,3 +1,4 @@
+from typing import Optional
 from sqlalchemy.orm import Session
 from models.models import User
 from schemas.users import UpdateUserRequest
@@ -7,7 +8,7 @@ from schemas.users import UpdateUserRequest
 #     return db.query(User).filter(User.user_id == user_id).first()
 
 
-def update_user(user_id: int, user: UpdateUserRequest, hashed_password: str | None, db: Session) -> User | None:
+def update_user(user_id: int, user: UpdateUserRequest, hashed_password: Optional[str], db: Session) -> Optional[User]:
     db_user = db.query(User).filter(User.user_id == user_id).first()
 
     if not db_user:

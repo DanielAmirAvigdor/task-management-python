@@ -1,3 +1,4 @@
+from typing import Optional
 from sqlalchemy.orm import Session
 from models.models import Task
 from schemas.tasks import CreateTaskRequest, UpdateTaskRequest
@@ -7,7 +8,7 @@ def get_tasks_by_user(user_id: int, db: Session) -> list[Task]:
     return db.query(Task).filter(Task.user_id == user_id).all()
 
 
-def get_task(task_id: int, db: Session) -> Task | None:
+def get_task(task_id: int, db: Session) -> Optional[Task]:
     return db.query(Task).filter(Task.task_id == task_id).first()
 
 
@@ -28,7 +29,7 @@ def create_task(task: CreateTaskRequest, user_id: int, db: Session) -> Task:
     return db_task
 
 
-def update_task(task_id: int, updated_task: UpdateTaskRequest, db: Session) -> Task | None:
+def update_task(task_id: int, updated_task: UpdateTaskRequest, db: Session) -> Optional[Task]:
     db_task = db.query(Task).filter(Task.task_id == task_id).first()
     if not db_task:
         return None

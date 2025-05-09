@@ -5,6 +5,10 @@ from datetime import datetime
 
 
 class UserValidator(BaseModel):
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    password: Optional[str] = None
+
     @field_validator("first_name", "last_name")
     @classmethod
     def validate_name(cls, value):
