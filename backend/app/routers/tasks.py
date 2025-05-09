@@ -9,6 +9,7 @@ from auth.dependencies import get_current_user
 
 tasks_router = APIRouter(tags=["Tasks"])
 
+
 # todo: remove this function (redundant for /users/me/tasks)
 @tasks_router.get("/", response_model=List[TaskResponse])
 async def get_tasks_by_user(
@@ -53,4 +54,3 @@ async def delete_task(
     db: Session = Depends(get_db)
 ):
     tasks_logic.delete_task(task_id, current_user.user_id, db)
-

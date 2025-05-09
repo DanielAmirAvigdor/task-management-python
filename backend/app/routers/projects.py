@@ -9,6 +9,7 @@ from schemas.projects import ProjectResponse, CreateProjectRequest, UpdateProjec
 
 projects_router = APIRouter(tags=["Projects"])
 
+
 # todo: remove this function (redundant for /users/me/projects)
 @projects_router.get("/", response_model=List[ProjectResponse])
 async def get_projects_by_user(
