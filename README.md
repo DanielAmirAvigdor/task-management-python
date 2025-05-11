@@ -30,12 +30,12 @@ project's lucidchart schema:
 
 backend/
 └── app/
-├── main.py # FastAPI entry point
-├── models/ # SQLAlchemy models
-├── routers/ # Route definitions
-├── schemas/ # Pydantic schemas
-├── logic/ # Business logic layer
-├── data/ # DB interaction layer
-├── auth/ # JWT, hashing, dependencies
-├── utils/ # permissions, helpers, etc...
-└── db.py # DB session management
+    ├── main.py              # FastAPI entry point
+    ├── models/              # SQLAlchemy models
+    ├── routers/             # Route definitions
+    ├── schemas/             # Pydantic schemas
+    ├── logic/               # Business logic layer
+    ├── data/                # DB interaction layer
+    ├── auth/                # JWT, hashing, dependencies
+    ├── utils/               # Permission, helpers
+    └── db.py                # DB session management
