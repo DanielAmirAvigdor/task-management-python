@@ -37,6 +37,6 @@ Project's lucidchart schema:
 
 Project's folder hierarchy:
 
-<img width="486" alt="Screenshot 2025-05-11 at 11 36 10" src="https://github.com/user-attachments/assets/f9333f43-1cfe-4168-b9a9-f0a77ab4cf2b" />
+<img width="645" alt="Screenshot 2025-05-11 at 11 47 23" src="https://github.com/user-attachments/assets/f29ceee6-4af9-4085-8f5d-8cc1b90f08e3" />
 
 
