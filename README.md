@@ -18,9 +18,13 @@ A FastAPI-based backend for managing users, projects, and tasks with full JWT-ba
   - Linked to projects and assigned users
   - View/edit/delete only if authorized (assignee or project admin)
 - 📦 SQLAlchemy + PostgreSQL
-- 📄 Pydantic validation
-- 🧪 Ready for testing with `pytest` and `httpx` (in progress)
+- 📄 Testing with `pytest` (in progress)
 - 🌐 Interactive docs via Swagger: `http://localhost:8000/docs`
+- 📦 Tech Stack:
+
+Backend: FastAPI, SQLAlchemy, PostgreSQL
+
+Frontend: React (in progress)
 
 
 
