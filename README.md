@@ -27,12 +27,12 @@ A FastAPI-based backend for managing users, projects, and tasks with full JWT-ba
 
 
 
-project's lucidchart schema:
+Project's lucidchart schema:
 
 <img width="770" alt="Screenshot 2025-05-09 at 16 00 09" src="https://github.com/user-attachments/assets/e6b61d5b-fbaf-43cf-8586-f36a2a570b73" />
 
 
-projects folder hierarchy:
+Project's folder hierarchy:
 
 <img width="486" alt="Screenshot 2025-05-11 at 11 36 10" src="https://github.com/user-attachments/assets/f9333f43-1cfe-4168-b9a9-f0a77ab4cf2b" />
 
