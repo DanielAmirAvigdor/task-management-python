@@ -20,11 +20,10 @@ A FastAPI-based backend for managing users, projects, and tasks with full JWT-ba
 - 📦 SQLAlchemy + PostgreSQL
 - 📄 Testing with `pytest` (in progress)
 - 🌐 Interactive docs via Swagger: `http://localhost:8000/docs`
+  
 - 📦 Tech Stack:
-
-Backend: FastAPI, SQLAlchemy, PostgreSQL
-
-Frontend: React (in progress)
+  - Backend: FastAPI, PostgreSQL (SQLAlchemy), JWT, Pydantic
+  - Frontend: React, Redux (in progress)
 
 
 
