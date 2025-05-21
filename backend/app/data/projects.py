@@ -4,15 +4,6 @@ from models.models import Project, UserProject
 from schemas.projects import CreateProjectRequest, UpdateProjectRequest
 
 
-def get_projects_by_user(user_id: int, db: Session) -> list[Project]:
-    return (
-        db.query(Project)
-        .join(UserProject, UserProject.project_id == Project.project_id)
-        .filter(UserProject.user_id == user_id)
-        .all()
-    )
-
-
 def get_project(project_id: int, db: Session) -> Optional[Project]:
     return db.query(Project).filter(Project.project_id == project_id).first()
 
@@ -60,3 +51,12 @@ def delete_project(project_id: int, db: Session) -> bool:
     db.commit()
 
     return True
+
+
+def get_projects_by_user_id(user_id: int, db: Session) -> list[Project]:
+    return (
+        db.query(Project)
+        .join(UserProject, UserProject.project_id == Project.project_id)
+        .filter(UserProject.user_id == user_id)
+        .all()
+    )

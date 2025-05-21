@@ -7,11 +7,6 @@ from data import projects as projects_data
 from utils import permissions
 
 
-def get_projects_by_user(user_id: str, db: Session) -> List[Project]:
-    projects = projects_data.get_projects_by_user(user_id, db)
-    return projects
-
-
 def get_project(project_id: int, user_id: int, db: Session) -> Project:
     if not permissions.is_user_participant(user_id, project_id, db):
         raise HTTPException(status_code=403, detail="Unauthorized")
@@ -48,3 +43,8 @@ def delete_project(project_id: int, user_id: int, db: Session) -> bool:
         raise HTTPException(status_code=403, detail="Unauthorized")
 
     return projects_data.delete_project(project_id, db)
+
+
+def get_projects_by_user_id(user_id: str, db: Session) -> List[Project]:
+    projects = projects_data.get_projects_by_user_id(user_id, db)
+    return projects

@@ -7,11 +7,6 @@ from utils import permissions
 from schemas.tasks import CreateTaskRequest, UpdateTaskRequest
 
 
-def get_tasks_by_user(user_id: str, db: Session) -> List[Task]:
-    tasks = tasks_data.get_tasks_by_user(user_id, db)
-    return tasks
-
-
 def get_task(task_id: int, user_id: int, db: Session) -> Task:
     task = tasks_data.get_task(task_id, db)
     if not task:
@@ -50,3 +45,8 @@ def delete_task(task_id: int, user_id: int, db: Session) -> bool:
             raise HTTPException(status_code=403, detail="Unauthorized")
 
     return tasks_data.delete_task(task_id, db)
+
+
+def get_tasks_by_user_id(user_id: str, db: Session) -> List[Task]:
+    tasks = tasks_data.get_tasks_by_user_id(user_id, db)
+    return tasks

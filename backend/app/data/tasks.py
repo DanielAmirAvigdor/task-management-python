@@ -4,7 +4,7 @@ from models.models import Task
 from schemas.tasks import CreateTaskRequest, UpdateTaskRequest
 
 
-def get_tasks_by_user(user_id: int, db: Session) -> list[Task]:
+def get_tasks_by_user_id(user_id: int, db: Session) -> list[Task]:
     return db.query(Task).filter(Task.user_id == user_id).all()
 
 
