@@ -1,15 +1,19 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from schemas.users import UserResponse, UpdateUserRequest
+from schemas.projects import ProjectResponse
+from schemas.tasks import TaskResponse
 from logic import users as users_logic
 from logic import tasks as tasks_logic
 from logic import projects as projects_logic
 from typing import List
-from models.models import User, Project, Task
+from models.models import User
 from auth.dependencies import get_current_user
 from data.db import get_db
 
 users_router = APIRouter(tags=["Users"])
+
+# todo: get user by id (for viewing other users)
 
 
 @users_router.get("/me", response_model=UserResponse)
@@ -36,7 +40,7 @@ async def delete_user(
     users_logic.delete_user(current_user.user_id, db)
 
 
-@users_router.get("/me/projects", response_model=List[Project])
+@users_router.get("/me/projects", response_model=List[ProjectResponse])
 async def get_projects_by_user(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
@@ -44,7 +48,7 @@ async def get_projects_by_user(
     return projects_logic.get_projects_by_user_id(current_user.user_id, db)
 
 
-@users_router.get("/me/tasks", response_model=List[Task])
+@users_router.get("/me/tasks", response_model=List[TaskResponse])
 async def get_tasks_by_user(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)

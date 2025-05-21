@@ -1,5 +1,5 @@
 import re
-from pydantic import BaseModel, EmailStr, Field, field_validator
+from pydantic import BaseModel, EmailStr, ConfigDict, Field, field_validator
 from typing import Optional
 from datetime import datetime
 
@@ -48,5 +48,4 @@ class UserResponse(BaseModel):
     last_name: str
     created_at: datetime
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

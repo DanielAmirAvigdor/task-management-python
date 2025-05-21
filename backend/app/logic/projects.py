@@ -45,6 +45,6 @@ def delete_project(project_id: int, user_id: int, db: Session) -> bool:
     return projects_data.delete_project(project_id, db)
 
 
-def get_projects_by_user_id(user_id: str, db: Session) -> List[Project]:
+def get_projects_by_user_id(user_id: int, db: Session) -> List[Project]:
     projects = projects_data.get_projects_by_user_id(user_id, db)
     return projects

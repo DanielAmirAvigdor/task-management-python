@@ -47,6 +47,11 @@ def delete_task(task_id: int, user_id: int, db: Session) -> bool:
     return tasks_data.delete_task(task_id, db)
 
 
-def get_tasks_by_user_id(user_id: str, db: Session) -> List[Task]:
+def get_tasks_by_user_id(user_id: int, db: Session) -> List[Task]:
     tasks = tasks_data.get_tasks_by_user_id(user_id, db)
+    return tasks
+
+
+def get_tasks_by_project_id(user_id: int, project_id: int, db: Session) -> List[Task]:
+    tasks = tasks_data.get_tasks_by_project_id(project_id, db)
     return tasks

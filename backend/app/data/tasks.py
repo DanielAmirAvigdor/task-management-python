@@ -4,10 +4,6 @@ from models.models import Task
 from schemas.tasks import CreateTaskRequest, UpdateTaskRequest
 
 
-def get_tasks_by_user_id(user_id: int, db: Session) -> list[Task]:
-    return db.query(Task).filter(Task.user_id == user_id).all()
-
-
 def get_task(task_id: int, db: Session) -> Optional[Task]:
     return db.query(Task).filter(Task.task_id == task_id).first()
 
@@ -62,3 +58,11 @@ def delete_task(task_id: int, db: Session) -> bool:
     db.commit()
 
     return True
+
+
+def get_tasks_by_user_id(user_id: int, db: Session) -> list[Task]:
+    return db.query(Task).filter(Task.user_id == user_id).all()
+
+
+def get_tasks_by_project_id(project_id: int, db: Session) -> list[Task]:
+    return db.query(Task).filter(Task.project_id == project_id).all()

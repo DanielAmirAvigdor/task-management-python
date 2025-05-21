@@ -1,4 +1,3 @@
-from typing import List
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from schemas.tasks import TaskResponse, CreateTaskRequest, UpdateTaskRequest
@@ -8,15 +7,6 @@ from models.models import User
 from auth.dependencies import get_current_user
 
 tasks_router = APIRouter(tags=["Tasks"])
-
-
-# todo: remove this function (redundant for /users/me/tasks)
-@tasks_router.get("/", response_model=List[TaskResponse])
-async def get_tasks_by_user(
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    return tasks_logic.get_tasks_by_user(current_user.user_id, db)
 
 
 @tasks_router.get("/{task_id}", response_model=TaskResponse)

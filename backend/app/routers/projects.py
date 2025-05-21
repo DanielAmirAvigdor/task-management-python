@@ -1,11 +1,13 @@
 from typing import List
 from data.db import get_db
 from logic import projects as projects_logic
+from logic import tasks as tasks_logic
 from fastapi import APIRouter, Depends, status
 from auth.dependencies import get_current_user
 from sqlalchemy.orm import Session
 from models.models import User
 from schemas.projects import ProjectResponse, CreateProjectRequest, UpdateProjectRequest
+from schemas.tasks import TaskResponse
 
 projects_router = APIRouter(tags=["Projects"])
 
@@ -57,3 +59,10 @@ async def delete_project(
 
 
 # todo: add /projects/project_id/tasks - get all tasks for project
+@projects_router.get("{project_id}/tasks", response_model=List[TaskResponse])
+async def get_tasks_by_project_id(
+    project_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    return tasks_logic.get_tasks_by_project_id(current_user.user_id, project_id, db)
